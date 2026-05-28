@@ -12,5 +12,19 @@
       bloqueados e filtrará palavrões do conteúdo HTML.
     </p>
     <p>Exemplo de uso: <code>http://localhost:5000/facebook.com</code></p>
+
+    <h2>Sites Bloqueados</h2>
+    <ul>
+      {% for site in bloqueados %}
+      <li>{{ site }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Palavrões Filtrados</h2>
+    <ul>
+      {% for palavrao in palavroes %}
+      <li>{{ palavrao }}</li>
+      {% endfor %}
+    </ul>
   </body>
 </html>
