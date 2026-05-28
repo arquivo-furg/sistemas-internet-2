@@ -1,5 +1,6 @@
 import json
 from flask import Flask, render_template
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 
@@ -17,6 +18,16 @@ def carregar_palavroes():
         return json.load(f)
 
 
+# Extrai o domínio da URL (ex: "facebook.com")
+def extrair_dominio(url):
+    # Garante que a URL comece com http:// ou https://
+    if not url.startswith("http"):
+        url = "http://" + url
+
+    parsed = urlparse(url)
+    return parsed.netloc
+
+
 # Rota index: exibe uma página simples explicando o uso do proxy
 # Mostra a lista de sites bloqueados e os palavrões filtrados
 @app.route("/")
@@ -24,6 +35,13 @@ def index():
     bloqueados = carregar_bloqueados()
     palavroes = carregar_palavroes()
     return render_template("index.html", bloqueados=bloqueados, palavroes=palavroes)
+
+
+# Rota principal: captura qualquer URL passada após o endereço do proxy
+@app.route("/<path:url>")
+def proxy(url):
+    dominio = extrair_dominio(url)
+    return f"<h1>Você tentou acessar: {dominio}</h1>"
 
 
 if __name__ == "__main__":
