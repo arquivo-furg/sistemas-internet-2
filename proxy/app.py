@@ -1,8 +1,16 @@
 import json
+from datetime import datetime
 from flask import Flask, render_template
 from urllib.parse import urlparse
 
 app = Flask(__name__)
+
+
+# Define ações para o log
+class Acoes:
+    PERMITIDO = "permitido"
+    BLOQUEADO = "bloqueado"
+    FILTRADO = "filtrado"
 
 
 # Carrega lista de sites bloqueados
@@ -28,6 +36,14 @@ def extrair_dominio(url):
     return parsed.netloc
 
 
+# Registra cada acesso no log
+def registrar_log(dominio, acao):
+    agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    linha = f"{agora} | {dominio} | {acao}\n"
+    with open("log.txt", "a", encoding="utf-8") as f:
+        f.write(linha)
+
+
 # Rota index: exibe uma página simples explicando o uso do proxy
 # Mostra a lista de sites bloqueados e os palavrões filtrados
 @app.route("/")
@@ -45,8 +61,10 @@ def proxy(url):
 
     # Verifica se o domínio está bloqueado
     if any(b in dominio for b in bloqueados):
+        registrar_log(dominio, Acoes.BLOQUEADO)
         return f"<h1>O site {dominio} está bloqueado!</h1>", 403
 
+    registrar_log(dominio, Acoes.PERMITIDO)
     return f"<h1>Você tentou acessar: {dominio}</h1>", 200
 
 
