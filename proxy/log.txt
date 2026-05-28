@@ -1,0 +1,2 @@
+# Log de acessos do proxy
+# Formato: timestamp | domínio | ação
