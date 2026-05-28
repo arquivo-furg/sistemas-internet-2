@@ -41,7 +41,13 @@ def index():
 @app.route("/<path:url>")
 def proxy(url):
     dominio = extrair_dominio(url)
-    return f"<h1>Você tentou acessar: {dominio}</h1>"
+    bloqueados = carregar_bloqueados()
+
+    # Verifica se o domínio está bloqueado
+    if any(b in dominio for b in bloqueados):
+        return f"<h1>O site {dominio} está bloqueado!</h1>", 403
+
+    return f"<h1>Você tentou acessar: {dominio}</h1>", 200
 
 
 if __name__ == "__main__":
