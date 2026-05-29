@@ -96,9 +96,10 @@
         </div>
         <div class="p-4">
           <ul>
-            {% for palavrao in palavroes %}
+            {% for palavrao, substituto in palavroes.items() %}
             <li class="flex items-center">
               <span class="font-mono mr-auto">{{ palavrao }}</span>
+              <span class="font-mono mr-4">{{ substituto }}</span>
               <a
                 href="?remover=palavra&palavra={{ palavrao }}"
                 class="text-red-500 text-sm hover:underline"
