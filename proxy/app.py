@@ -60,7 +60,7 @@ def adicionar_remover_url(url, remover):
             if url not in dados["bloqueados"]:
                 dados["bloqueados"].append(url)
         f.seek(0)
-        json.dump(dados, f, indent=4)
+        json.dump(dados, f, indent=2)
         f.truncate()
 
 
@@ -74,7 +74,7 @@ def adicionar_remover_palavra(palavra, substituto, remover):
         elif substituto:
             dados[palavra] = substituto
         f.seek(0)
-        json.dump(dados, f, indent=4)
+        json.dump(dados, f, indent=2, ensure_ascii=False)
         f.truncate()
 
 
