@@ -121,7 +121,18 @@ def proxy(url):
 
     # Faz a requisição ao site real
     try:
-        res = requests.get(url)
+        req_headers = {
+            key: value
+            for key, value in request.headers
+            if key.lower() not in ["host", "accept-encoding"]
+            # Impedir conflito de decodificação
+        }
+        res = requests.request(
+            url=url,
+            method=request.method,
+            headers=req_headers,
+            # allow_redirects=False,
+        )
     except Exception:
         if dominio in ["favicon.ico", ".well-known"]:
             return ("", 204)  # Ignora erros comuns de favicon e certificados
@@ -130,6 +141,20 @@ def proxy(url):
 
     content = res.content
     status = res.status_code
+
+    # Exclui headers que causam problemas de decodificação no navegador
+    excluded_headers = [
+        "content-encoding",
+        "content-length",
+        "transfer-encoding",
+        "connection",
+    ]
+    headers = [
+        (name, value)
+        for (name, value) in res.headers.items()
+        if name.lower() not in excluded_headers
+    ]
+
     type = res.headers.get("Content-Type", "")
 
     # Verifica se o conteúdo é HTML antes de filtrar
@@ -144,7 +169,10 @@ def proxy(url):
             filtrado = True
 
     registrar_log(dominio, FILTRADO if filtrado else PERMITIDO)
-    return (Response(response=content, status=status, content_type=type), status)
+    return (
+        Response(response=content, status=status, headers=headers, content_type=type),
+        status,
+    )
 
 
 if __name__ == "__main__":
