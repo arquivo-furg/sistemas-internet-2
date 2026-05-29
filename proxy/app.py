@@ -124,8 +124,10 @@ def proxy(url):
         registrar_log(dominio, ERRO)
         return (render_template("erro.html", dominio=dominio, codigo=502), 502)
 
-    # Verifica se o conteúdo é HTML antes de filtrar
     type = res.headers.get("Content-Type", "")
+    content = res.content
+
+    # Verifica se o conteúdo é HTML antes de filtrar
     filtrado = False
     if "text/html" in type:
         palavroes = carregar_palavroes()
@@ -133,10 +135,11 @@ def proxy(url):
         html = filtrar_palavroes(res.text, palavroes)
 
         if html != res.text:
+            content = html.encode("utf-8")
             filtrado = True
 
     registrar_log(dominio, FILTRADO if filtrado else PERMITIDO)
-    return (Response(res.content, status=res.status_code, content_type=type), 200)
+    return (Response(response=content, status=res.status_code, content_type=type), 200)
 
 
 if __name__ == "__main__":
