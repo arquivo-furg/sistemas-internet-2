@@ -62,7 +62,7 @@ def proxy(url):
     # Verifica se o domínio está bloqueado
     if any(b in dominio for b in bloqueados):
         registrar_log(dominio, Acoes.BLOQUEADO)
-        return f"<h1>O site {dominio} está bloqueado!</h1>", 403
+        return (render_template("bloqueado.html", dominio=dominio), 403)
 
     registrar_log(dominio, Acoes.PERMITIDO)
     return f"<h1>Você tentou acessar: {dominio}</h1>", 200
