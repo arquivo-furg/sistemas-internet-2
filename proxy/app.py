@@ -1,6 +1,7 @@
 import json
+import requests
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, Response, render_template
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -28,10 +29,6 @@ def carregar_palavroes():
 
 # Extrai o domínio da URL (ex: "facebook.com")
 def extrair_dominio(url):
-    # Garante que a URL comece com http:// ou https://
-    if not url.startswith("http"):
-        url = "http://" + url
-
     parsed = urlparse(url)
     return parsed.netloc
 
@@ -56,6 +53,10 @@ def index():
 # Rota principal: captura qualquer URL passada após o endereço do proxy
 @app.route("/<path:url>")
 def proxy(url):
+    # Garante que a URL comece com http:// ou https://
+    if not url.startswith("http"):
+        url = "http://" + url
+
     dominio = extrair_dominio(url)
     bloqueados = carregar_bloqueados()
 
@@ -64,8 +65,11 @@ def proxy(url):
         registrar_log(dominio, Acoes.BLOQUEADO)
         return (render_template("bloqueado.html", dominio=dominio), 403)
 
+    res = requests.get(url)
+    type = res.headers.get("Content-Type", "")
+
     registrar_log(dominio, Acoes.PERMITIDO)
-    return f"<h1>Você tentou acessar: {dominio}</h1>", 200
+    return (Response(res.content, status=res.status_code, content_type=type), 200)
 
 
 if __name__ == "__main__":
