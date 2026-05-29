@@ -3,15 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acesso negado</title>
+    <title>Erro {{ codigo }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-black min-h-svh flex">
     <div class="m-auto flex flex-col gap-y-2 items-center text-white">
-      <img class="w-96" src="https://http.cat/403.jpg" alt="403" />
-      <h1 class="text-4xl font-bold">Acesso negado</h1>
+      <img
+        class="w-96"
+        src="https://http.cat/{{ codigo }}.jpg"
+        alt="{{ codigo }}"
+      />
+      <h1 class="text-4xl font-bold">Erro ao acessar</h1>
       <p class="text-xl">
-        O acesso a <span class="font-bold">{{ dominio }}</span> está bloqueado!
+        Ocorreu um erro ao acessar <span class="font-bold">{{ dominio }}</span>.
       </p>
     </div>
   </body>
