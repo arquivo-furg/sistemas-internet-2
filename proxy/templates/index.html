@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-black min-h-svh max-h-svh flex">
-    <div class="text-white p-8 grid gap-8 grid-cols-2 mx-auto max-w-4xl">
+    <div
+      class="grid-rows-[auto_1fr] text-white p-8 grid gap-8 grid-cols-2 mx-auto max-w-4xl"
+    >
       <div class="space-y-2 col-span-2">
         <h1 class="text-4xl font-bold">Proxy de Bloqueio e Filtragem</h1>
         <p>
@@ -38,14 +40,34 @@
         </div>
       </div>
 
-      <div class="relative bg-neutral-800 rounded overflow-y-auto">
+      <div class="relative bg-neutral-800 rounded overflow-y-auto flex-1">
         <div class="bg-neutral-800 p-4 sticky top-0 border-b border-black">
-          <h2 class="text-2xl">Sites Bloqueados</h2>
+          <h2 class="text-2xl mb-2">Sites Bloqueados</h2>
+          <form name="dominios" class="grid grid-cols-3 gap-x-1">
+            <input
+              type="text"
+              name="url"
+              placeholder="URL"
+              class="bg-black px-2 py-0.5 rounded col-span-2"
+            />
+            <button type="submit" class="bg-black py-0.5 rounded">
+              Adicionar
+            </button>
+          </form>
         </div>
         <div class="p-4">
           <ul>
             {% for site in bloqueados %}
-            <li>{{ site }}</li>
+            <li class="flex items-center">
+              <a href="{{ site }}" class="font-mono hover:underline mr-auto"
+                >{{ site }}</a
+              >
+              <a
+                href="?remover=url&url={{ site }}"
+                class="text-red-500 text-sm hover:underline"
+                >Remover</a
+              >
+            </li>
             {% endfor %}
           </ul>
         </div>
@@ -53,12 +75,36 @@
 
       <div class="relative bg-neutral-800 rounded overflow-y-auto">
         <div class="bg-neutral-800 p-4 sticky top-0 border-b border-black">
-          <h2 class="text-2xl">Palavrões Filtrados</h2>
+          <h2 class="text-2xl mb-2">Palavrões Filtrados</h2>
+          <form name="palavroes" class="grid grid-cols-3 gap-x-1">
+            <input
+              type="text"
+              name="palavra"
+              placeholder="Palavrão"
+              class="bg-black px-2 py-0.5 rounded"
+            />
+            <input
+              type="text"
+              name="substituto"
+              placeholder="Substituto"
+              class="bg-black px-2 py-0.5 rounded"
+            />
+            <button type="submit" class="bg-black py-0.5 rounded">
+              Adicionar
+            </button>
+          </form>
         </div>
         <div class="p-4">
           <ul>
             {% for palavrao in palavroes %}
-            <li>{{ palavrao }}</li>
+            <li class="flex items-center">
+              <span class="font-mono mr-auto">{{ palavrao }}</span>
+              <a
+                href="?remover=palavra&palavra={{ palavrao }}"
+                class="text-red-500 text-sm hover:underline"
+                >Remover</a
+              >
+            </li>
             {% endfor %}
           </ul>
         </div>

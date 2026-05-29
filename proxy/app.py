@@ -2,7 +2,7 @@ import json
 import re
 import requests
 from datetime import datetime
-from flask import Flask, Response, render_template
+from flask import Flask, request, Response, render_template, redirect
 from urllib.parse import urlparse
 
 # Define ações para o log
@@ -49,10 +49,52 @@ def filtrar_palavroes(html, palavroes):
     return html
 
 
+# Adiciona ou remove um site da lista de bloqueados
+def adicionar_remover_url(url, remover):
+    with open("blocked.json", "r+", encoding="utf-8") as f:
+        dados = json.load(f)
+        if remover:
+            if url in dados["bloqueados"]:
+                dados["bloqueados"].remove(url)
+        else:
+            if url not in dados["bloqueados"]:
+                dados["bloqueados"].append(url)
+        f.seek(0)
+        json.dump(dados, f, indent=4)
+        f.truncate()
+
+
+# Adiciona ou remove um palavrão do dicionário
+def adicionar_remover_palavra(palavra, substituto, remover):
+    with open("words.json", "r+", encoding="utf-8") as f:
+        dados = json.load(f)
+        if remover:
+            if palavra in dados:
+                del dados[palavra]
+        elif substituto:
+            dados[palavra] = substituto
+        f.seek(0)
+        json.dump(dados, f, indent=4)
+        f.truncate()
+
+
 # Rota index: exibe uma página simples explicando o uso do proxy
 # Mostra a lista de sites bloqueados e os palavrões filtrados
 @app.route("/")
 def index():
+    url = request.args.get("url")
+    palavra = request.args.get("palavra")
+    substituto = request.args.get("substituto")
+    remover = request.args.get("remover")
+
+    if url:
+        adicionar_remover_url(url, remover)
+        return redirect("/")
+
+    if palavra:
+        adicionar_remover_palavra(palavra, substituto, remover)
+        return redirect("/")
+
     bloqueados = carregar_bloqueados()
     palavroes = carregar_palavroes()
     return render_template("index.html", bloqueados=bloqueados, palavroes=palavroes)
