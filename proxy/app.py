@@ -128,8 +128,9 @@ def proxy(url):
         registrar_log(dominio, ERRO)
         return (render_template("erro.html", dominio=dominio, codigo=502), 502)
 
-    type = res.headers.get("Content-Type", "")
     content = res.content
+    status = res.status_code
+    type = res.headers.get("Content-Type", "")
 
     # Verifica se o conteúdo é HTML antes de filtrar
     filtrado = False
@@ -143,7 +144,7 @@ def proxy(url):
             filtrado = True
 
     registrar_log(dominio, FILTRADO if filtrado else PERMITIDO)
-    return (Response(response=content, status=res.status_code, content_type=type), 200)
+    return (Response(response=content, status=status, content_type=type), status)
 
 
 if __name__ == "__main__":
