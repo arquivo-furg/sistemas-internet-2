@@ -119,6 +119,8 @@ def proxy(url):
     try:
         res = requests.get(url)
     except Exception:
+        if dominio in ["favicon.ico", ".well-known"]:
+            return ("", 204)  # Ignora erros comuns de favicon e certificados
         registrar_log(dominio, ERRO)
         return (render_template("erro.html", dominio=dominio, codigo=502), 502)
 
