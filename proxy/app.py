@@ -4,14 +4,14 @@ from datetime import datetime
 from flask import Flask, Response, render_template
 from urllib.parse import urlparse
 
-app = Flask(__name__)
-
-
 # Define ações para o log
-class Acoes:
-    PERMITIDO = "permitido"
-    BLOQUEADO = "bloqueado"
-    FILTRADO = "filtrado"
+PERMITIDO = "permitido"
+BLOQUEADO = "bloqueado"
+FILTRADO = "filtrado"
+ERRO = "erro ao acessar"
+
+
+app = Flask(__name__)
 
 
 # Carrega lista de sites bloqueados
@@ -62,13 +62,13 @@ def proxy(url):
 
     # Verifica se o domínio está bloqueado
     if any(b in dominio for b in bloqueados):
-        registrar_log(dominio, Acoes.BLOQUEADO)
+        registrar_log(dominio, BLOQUEADO)
         return (render_template("bloqueado.html", dominio=dominio), 403)
 
     res = requests.get(url)
     type = res.headers.get("Content-Type", "")
 
-    registrar_log(dominio, Acoes.PERMITIDO)
+    registrar_log(dominio, PERMITIDO)
     return (Response(res.content, status=res.status_code, content_type=type), 200)
 
 
