@@ -4,27 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proxy de Bloqueio e Filtragem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Proxy de Bloqueio e Filtragem</h1>
-    <p>
-      Use este proxy para acessar sites. Ele bloqueará domínios na lista de
-      bloqueados e filtrará palavrões do conteúdo HTML.
-    </p>
-    <p>Exemplo de uso: <code>http://localhost:5000/facebook.com</code></p>
+  <body class="bg-black min-h-svh max-h-svh flex">
+    <div class="text-white p-8 grid gap-8 grid-cols-2 mx-auto max-w-4xl">
+      <div class="space-y-2 col-span-2">
+        <h1 class="text-4xl font-bold">Proxy de Bloqueio e Filtragem</h1>
+        <p>
+          Use este proxy para acessar sites. Ele bloqueará domínios na lista de
+          bloqueados e filtrará palavrões do conteúdo HTML.
+        </p>
 
-    <h2>Sites Bloqueados</h2>
-    <ul>
-      {% for site in bloqueados %}
-      <li>{{ site }}</li>
-      {% endfor %}
-    </ul>
+        <p>Testar um domínio:</p>
+        <div class="flex gap-x-2">
+          <form name="dominio" class="flex-1">
+            <input
+              name="url"
+              type="text"
+              value="facebook.com"
+              class="bg-neutral-800 text-white font-mono py-1 px-2 rounded w-full"
+            />
+          </form>
+          <button
+            type="button"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+            onclick="
+              window.location.href =
+                window.location.href + document.forms['dominio'].url.value
+            "
+          >
+            Acessar
+          </button>
+        </div>
+      </div>
 
-    <h2>Palavrões Filtrados</h2>
-    <ul>
-      {% for palavrao in palavroes %}
-      <li>{{ palavrao }}</li>
-      {% endfor %}
-    </ul>
+      <div class="relative bg-neutral-800 rounded overflow-y-auto">
+        <div class="bg-neutral-800 p-4 sticky top-0 border-b border-black">
+          <h2 class="text-2xl">Sites Bloqueados</h2>
+        </div>
+        <div class="p-4">
+          <ul>
+            {% for site in bloqueados %}
+            <li>{{ site }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="relative bg-neutral-800 rounded overflow-y-auto">
+        <div class="bg-neutral-800 p-4 sticky top-0 border-b border-black">
+          <h2 class="text-2xl">Palavrões Filtrados</h2>
+        </div>
+        <div class="p-4">
+          <ul>
+            {% for palavrao in palavroes %}
+            <li>{{ palavrao }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
