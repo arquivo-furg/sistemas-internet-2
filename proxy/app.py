@@ -82,6 +82,10 @@ def adicionar_remover_palavra(palavra, substituto, remover):
 # Mostra a lista de sites bloqueados e os palavrões filtrados
 @app.route("/")
 def index():
+    acessar = request.args.get("acessar")
+    if acessar:
+        return redirect("/" + acessar)
+
     url = request.args.get("url")
     palavra = request.args.get("palavra")
     substituto = request.args.get("substituto")

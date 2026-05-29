@@ -16,28 +16,22 @@
           Use este proxy para acessar sites. Ele bloqueará domínios na lista de
           bloqueados e filtrará palavrões do conteúdo HTML.
         </p>
-
         <p>Testar um domínio:</p>
-        <div class="flex gap-x-2">
-          <form name="dominio" class="flex-1" onsubmit="event.preventDefault()">
-            <input
-              name="url"
-              type="text"
-              value="facebook.com"
-              class="bg-neutral-800 text-white font-mono py-1 px-2 rounded w-full"
-            />
-          </form>
+
+        <form name="dominio" class="flex gap-x-2">
+          <input
+            name="acessar"
+            type="text"
+            value="facebook.com"
+            class="bg-neutral-800 text-white font-mono py-1 px-2 rounded flex-1"
+          />
           <button
-            type="button"
+            type="submit"
             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-            onclick="
-              window.location.href =
-                window.location.href + document.forms['dominio'].url.value
-            "
           >
             Acessar
           </button>
-        </div>
+        </form>
       </div>
 
       <div class="relative bg-neutral-800 rounded overflow-y-auto flex-1">
@@ -55,6 +49,7 @@
             </button>
           </form>
         </div>
+
         <div class="p-4">
           <ul>
             {% for site in bloqueados %}
@@ -94,6 +89,7 @@
             </button>
           </form>
         </div>
+
         <div class="p-4">
           <ul>
             {% for palavrao, substituto in palavroes.items() %}
