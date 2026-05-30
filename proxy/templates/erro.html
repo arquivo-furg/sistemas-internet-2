@@ -8,11 +8,13 @@
   </head>
   <body class="bg-black min-h-svh flex">
     <div class="m-auto flex flex-col gap-y-2 items-center text-white">
-      <img
-        class="w-96"
-        src="https://http.cat/{{ codigo }}.jpg"
-        alt="{{ codigo }}"
-      />
+      <div class="h-96">
+        <img
+          class="h-full"
+          src="https://http.cat/{{ codigo }}.jpg"
+          alt="{{ codigo }}"
+        />
+      </div>
       <h1 class="text-4xl font-bold">Erro ao acessar</h1>
       <p class="text-xl">
         Ocorreu um erro ao acessar <span class="font-bold">{{ dominio }}</span>.
