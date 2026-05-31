@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 from flask import Flask, request, Response, render_template, redirect
 from urllib.parse import urlparse
+from bs4 import BeautifulSoup
 
 # Define ações para o log
 PERMITIDO = "permitido"
@@ -163,6 +164,14 @@ def proxy(url):
         if html != res.text:
             content = html.encode("utf-8")
             filtrado = True
+
+    # Insere a barra de navegação no HTML
+    soup = BeautifulSoup(content, "html.parser")
+    with open("templates/nav.html", "r", encoding="utf-8") as f:
+        nav = BeautifulSoup(f.read(), "html.parser")
+        nav.input["value"] = dominio
+        soup.body.insert(0, nav)
+        content = soup.prettify()
 
     registrar_log(dominio, FILTRADO if filtrado else PERMITIDO)
     return (
