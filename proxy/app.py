@@ -9,7 +9,6 @@ from urllib.parse import urlparse
 PERMITIDO = "permitido"
 BLOQUEADO = "bloqueado"
 FILTRADO = "filtrado"
-ERRO = "erro ao acessar"
 
 
 app = Flask(__name__)
@@ -134,7 +133,6 @@ def proxy(url):
             # allow_redirects=False,
         )
     except Exception:
-        registrar_log(dominio, ERRO)
         return (render_template("erro.html", dominio=dominio, codigo=502), 502)
 
     content = res.content
