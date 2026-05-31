@@ -1,32 +1,108 @@
 <nav
-  class="z-1000 absolute -top-10 left-1/2 -translate-x-1/2 w-full max-w-2xl has-[:focus]:top-0 has-[:hover]:top-0 transition-all"
+  style="
+    z-index: 999;
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 42rem;
+    transition: all 0.15s ease-in-out;
+  "
+  onmouseover="this.style.top = '0'"
+  onmouseout="this.style.top = '-2.5rem'"
+  onfocusin="this.style.top='0'"
+  onfocusout="this.style.top='-2.5rem'"
 >
-  <div class="w-full bg-black p-1 rounded-b-lg border-2 border-neutral-800">
-    <form action="/" name="dominio" class="flex gap-x-2 text-sm text-white">
+  <div
+    style="
+      width: 100%;
+      background-color: #000;
+      padding: 0.25rem;
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+      border: 2px solid #262626;
+      box-sizing: border-box;
+    "
+  >
+    <form
+      action="/"
+      name="dominio"
+      style="
+        display: flex;
+        column-gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #fff;
+      "
+    >
       <input
         name="acessar"
         type="text"
         value="{{ dominio }}"
-        class="bg-neutral-800 font-mono py-0.5 px-2 rounded flex-1"
+        style="
+          background-color: #262626;
+          font-family: ui-monospace, monospace;
+          padding: 0.125rem 0.5rem;
+          border-radius: 0.25rem;
+          border: none;
+          color: inherit;
+          flex: 1;
+          outline: none;
+          box-sizing: border-box;
+        "
       />
 
       <button
         type="submit"
-        class="bg-blue-600 hover:bg-blue-700 font-semibold py-0.5 px-4 rounded"
+        style="
+          background-color: #2563eb;
+          color: #fff;
+          font-weight: 600;
+          padding: 0.125rem 1rem;
+          border-radius: 0.25rem;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.15s ease-in-out;
+        "
+        onmouseover="this.style.backgroundColor = '#1d4ed8'"
+        onmouseout="this.style.backgroundColor = '#2563eb'"
       >
         Acessar
       </button>
 
       <a
         href="/"
-        class="block bg-neutral-800 hover:bg-neutral-800 font-semibold py-0.5 px-4 rounded"
+        style="
+          display: block;
+          background-color: #262626;
+          color: #fff;
+          font-weight: 600;
+          padding: 0.125rem 1rem;
+          border-radius: 0.25rem;
+          text-decoration: none;
+        "
       >
         Início
       </a>
     </form>
   </div>
   <div
-    class="absolute top-9 -mt-0.5 left-1/2 -translate-x-1/2 w-16 h-6 bg-black border-2 border-neutral-800 border-t-black rounded-b-2xl"
+    style="
+      z-index: 9999;
+      position: absolute;
+      top: 2.25rem;
+      margin-top: -0.125rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4rem;
+      height: 1.5rem;
+      background-color: #000;
+      border: 2px solid #262626;
+      border-top-color: #000;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      box-sizing: border-box;
+    "
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +114,7 @@
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="lucide lucide-chevron-down-icon lucide-chevron-down text-white mx-auto"
+      style="color: #fff; margin-left: auto; margin-right: auto; display: block"
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
