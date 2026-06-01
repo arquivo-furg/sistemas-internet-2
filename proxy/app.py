@@ -110,14 +110,15 @@ def proxy(url):
     # Garante que a URL comece com http:// ou https://
     if not url.startswith("http"):
         url = "http://" + url
+        return redirect("/" + url)
 
     dominio = extrair_dominio(url)
     bloqueados = carregar_bloqueados()
 
     # Verifica se o domínio está bloqueado
-    if any(b in dominio for b in bloqueados):
+    if any(dominio == b or dominio.endswith("." + b) for b in bloqueados):
         registrar_log(dominio, BLOQUEADO)
-        return (render_template("bloqueado.html", dominio=dominio), 403)
+        return (render_template("bloqueado.html", dominio=dominio, url=url), 403)
 
     # Faz a requisição ao site real
     try:
@@ -169,7 +170,7 @@ def proxy(url):
     soup = BeautifulSoup(content, "html.parser")
     with open("templates/nav.html", "r", encoding="utf-8") as f:
         nav = BeautifulSoup(f.read(), "html.parser")
-        nav.input["value"] = dominio
+        nav.input["value"] = url
         soup.insert(0, nav)
         content = str(soup).encode("utf-8")
 
