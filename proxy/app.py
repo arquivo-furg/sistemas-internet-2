@@ -170,8 +170,8 @@ def proxy(url):
     with open("templates/nav.html", "r", encoding="utf-8") as f:
         nav = BeautifulSoup(f.read(), "html.parser")
         nav.input["value"] = dominio
-        soup.body.insert(0, nav)
-        content = soup.prettify()
+        soup.insert(0, nav)
+        content = str(soup).encode("utf-8")
 
     registrar_log(dominio, FILTRADO if filtrado else PERMITIDO)
     return (

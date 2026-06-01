@@ -1,18 +1,12 @@
 <nav
   style="
     z-index: 999;
-    position: absolute;
-    top: -2.25rem;
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 42rem;
-    transition: all 0.15s ease-in-out;
+    max-width: 25rem;
   "
-  onmouseover="this.style.top = '0'"
-  onmouseout="this.style.top = '-2.25rem'"
-  onfocusin="this.style.top='0'"
-  onfocusout="this.style.top='-2.25rem'"
 >
   <div
     style="
@@ -43,12 +37,13 @@
         value="{{ dominio }}"
         style="
           background-color: #262626;
-          font-family: ui-monospace, monospace;
+          font-family: monospace;
           padding: 0 0.5rem;
           height: 1.6rem;
           border-radius: 0.25rem;
           border: none;
           color: inherit;
+          font-size: inherit;
           flex: 1;
           outline: none;
           box-sizing: border-box;
@@ -59,7 +54,8 @@
         type="submit"
         style="
           background-color: #2563eb;
-          color: #fff;
+          color: inherit;
+          font-size: inherit;
           font-weight: 600;
           padding: 0 1rem;
           height: 1.6rem;
@@ -68,8 +64,6 @@
           cursor: pointer;
           transition: background-color 0.15s ease-in-out;
         "
-        onmouseover="this.style.backgroundColor = '#1d4ed8'"
-        onmouseout="this.style.backgroundColor = '#2563eb'"
       >
         Acessar
       </button>
@@ -80,7 +74,8 @@
           display: flex;
           align-items: center;
           background-color: #262626;
-          color: #fff;
+          color: inherit;
+          font-size: inherit;
           font-weight: 600;
           padding: 0 1rem;
           height: 1.6rem;
@@ -91,38 +86,5 @@
         Início
       </a>
     </form>
-  </div>
-  <div
-    style="
-      z-index: 9999;
-      position: absolute;
-      top: 2.25rem;
-      margin-top: -0.125rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4rem;
-      height: 1.5rem;
-      background-color: #000;
-      border: 2px solid #262626;
-      border-top-color: #000;
-      border-bottom-left-radius: 1rem;
-      border-bottom-right-radius: 1rem;
-      box-sizing: border-box;
-    "
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      style="color: #fff; margin-left: auto; margin-right: auto; display: block"
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
   </div>
 </nav>
