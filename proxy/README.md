@@ -21,7 +21,9 @@ Implementa um proxy HTTP simples com bloqueio de sites e filtro de palavrões us
 proxy/
 ├── templates/
 │   ├── bloqueado.html  → página de bloqueio personalizada
-│   └── index.html      → página inicial do proxy
+│   ├── erro.html       → página com outros erros do sistema
+│   ├── inicio.html     → página inicial do proxy
+│   └── nav.html        → componente de navegação do proxy
 ├── app.py              → código principal do servidor
 ├── blocked.json        → lista de sites bloqueados
 ├── log.txt             → registro de acessos

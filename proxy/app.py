@@ -78,10 +78,10 @@ def adicionar_remover_palavra(palavra, substituto, remover):
         f.truncate()
 
 
-# Rota index: exibe uma página simples explicando o uso do proxy
+# Rota inicio: exibe uma página simples explicando o uso do proxy
 # Mostra a lista de sites bloqueados e os palavrões filtrados
 @app.route("/")
-def index():
+def inicio():
     acessar = request.args.get("acessar")
     if acessar:
         return redirect("/" + acessar)
@@ -101,7 +101,7 @@ def index():
 
     bloqueados = carregar_bloqueados()
     palavroes = carregar_palavroes()
-    return render_template("index.html", bloqueados=bloqueados, palavroes=palavroes)
+    return render_template("inicio.html", bloqueados=bloqueados, palavroes=palavroes)
 
 
 # Rota principal: captura qualquer URL passada após o endereço do proxy
