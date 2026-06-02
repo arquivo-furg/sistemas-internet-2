@@ -39,9 +39,10 @@ proxy/
 
 ## 🚀 Como instalar e executar
 
-### 1. Clone ou copie a pasta do projeto
+### 1. Clone e acesse a pasta do projeto
 
 ```bash
+git clone https://github.com/arquivo-furg/sistemas-internet-2.git
 cd proxy
 ```
 
