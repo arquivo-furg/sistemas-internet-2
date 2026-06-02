@@ -3,7 +3,10 @@
 Projeto de Sistemas para Internet II.  
 Implementa um proxy HTTP simples com bloqueio de sites e filtro de palavrões usando **Python + Flask**.
 
----
+## 👨‍💻 Desenvolvido por
+
+- Alex Santos (@Alexsander-oml)
+- Pedro Machado (@pedromchd)
 
 ## 📋 O que o projeto faz
 
@@ -11,8 +14,6 @@ Implementa um proxy HTTP simples com bloqueio de sites e filtro de palavrões us
 - **Bloqueia** sites listados em `blocked.json`
 - **Filtra palavrões** do HTML usando `words.json`
 - **Registra** todos os acessos em `log.txt`
-
----
 
 ## 🗂️ Estrutura do projeto
 
@@ -29,14 +30,10 @@ proxy/
 └── words.json          → palavrões e suas substituições
 ```
 
----
-
 ## ✅ Requisitos
 
 - Python 3.8 ou superior
 - pip (gerenciador de pacotes do Python)
-
----
 
 ## 🚀 Como instalar e executar
 
@@ -80,8 +77,6 @@ python app.py
 
 O servidor inicia em: `http://localhost:5000`
 
----
-
 ## 🧪 Como usar e testar
 
 Abra o navegador e acesse URLs no seguinte formato:
@@ -99,8 +94,6 @@ http://localhost:5000/http://example.com
 | `http://localhost:5000/http://instagram.com` | Página de bloqueio                             |
 | `http://localhost:5000/http://globo.com`     | Site carregado (palavrões filtrados se houver) |
 
----
-
 ## 📄 Arquivos JSON
 
 ### `blocked.json`
@@ -115,8 +108,6 @@ Lista de domínios que serão bloqueados pelo proxy.
 
 Para bloquear um novo site, basta adicionar o domínio na lista.
 
----
-
 ### `words.json`
 
 Dicionário de palavrões e suas substituições. A busca é **case-insensitive** (não diferencia maiúsculas de minúsculas).
@@ -130,8 +121,6 @@ Dicionário de palavrões e suas substituições. A busca é **case-insensitive*
 
 Para adicionar uma nova substituição, insira uma nova entrada no formato `"palavra": "substituto"`.
 
----
-
 ## ⚙️ Como funciona (resumo)
 
 1. O usuário acessa `http://localhost:5000/http://site.com`
@@ -143,14 +132,10 @@ Para adicionar uma nova substituição, insira uma nova entrada no formato `"pal
 5. Registra o acesso em `log.txt` com timestamp e ação
 6. Retorna o conteúdo ao navegador
 
----
-
 ## ⚠️ Limitações do projeto
 
 - **JavaScript dinâmico:** sites que carregam conteúdo via JavaScript não serão filtrados (o filtro age apenas no HTML inicial).
 - **Imagens e recursos externos:** recursos (CSS, imagens) que o browser carrega diretamente do site original não passam pelo proxy.
-
----
 
 ## 📝 Exemplo do log.txt
 
